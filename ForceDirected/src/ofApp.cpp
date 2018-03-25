@@ -1,71 +1,37 @@
 #include "ofApp.h"
 
-//--------------------------------------------------------------
+#include "Graph\Graph.h"
+
+Graph directedGraph;
+
 void ofApp::setup(){
+	float h = ofGetWindowHeight();
+	float w = ofGetWindowWidth();
 
+	GraphNode lastNode;
+
+	for (int i = 0; i < 2; i++) {
+		GraphNode node;
+		GraphEdge edge;
+
+		node.setPosition(ofRandom(0,w),ofRandom(0,h));
+		edge.setSource(lastNode);
+		edge.setTarget(node);
+
+		directedGraph.addNode(node);
+		if (i > 0) {
+			directedGraph.addEdge(edge);
+		}
+
+		lastNode = node;
+	}
 }
 
-//--------------------------------------------------------------
 void ofApp::update(){
-
+	directedGraph.update(1);
 }
 
-//--------------------------------------------------------------
 void ofApp::draw(){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::keyPressed(int key){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::keyReleased(int key){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
-
+	ofBackground(0);
+	directedGraph.draw();
 }
